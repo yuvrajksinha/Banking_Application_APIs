@@ -22,6 +22,11 @@ public class AccountController {
         this.accountService = accountService;
     }
 
+    @GetMapping("/")
+    public String home() {
+        return "Banking Service is Running 🚀";
+    }
+
     //Registration REST API
     @PostMapping("/register")
     public ResponseEntity<UserDto> createAccount(@RequestBody UserRegistrationDto userRegistrationDto){
