@@ -1,4 +1,14 @@
 package com.javaSpringProject.BankingService.Dto;
 
-public record TransferDto(Long sourceId,Long targetId,double amount){
-}
+import io.swagger.v3.oas.annotations.media.Schema;
+
+public record TransferDto(
+        @Schema(example = "1")
+        Long sourceId,
+
+        @Schema(example = "2")
+        Long targetId,
+
+        @Schema(example = "1000.0")
+        double amount
+){}

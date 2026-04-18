@@ -1,3 +1,12 @@
 package com.javaSpringProject.BankingService.Dto;
 
-public record UserRegistrationDto(UserDto userDto,AccountDto accountDto,ContactDto contactDto) {}
+import io.swagger.v3.oas.annotations.media.Schema;
+
+public record UserRegistrationDto(
+        @Schema(description = "User Details")
+        UserDto userDto,
+        @Schema(description = "Initial Account Details")
+        AccountDto accountDto,
+        @Schema(description = "Contact Details")
+        ContactDto contactDto
+) {}
