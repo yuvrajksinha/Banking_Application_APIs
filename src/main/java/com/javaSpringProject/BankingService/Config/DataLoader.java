@@ -21,8 +21,8 @@ public class DataLoader {
         return args -> {
 
             jdbcTemplate.execute("TRUNCATE TABLE accounts RESTART IDENTITY CASCADE");
-            jdbcTemplate.execute("TRUNCATE TABLE \"Contacts\" RESTART IDENTITY CASCADE");
-            jdbcTemplate.execute("TRUNCATE TABLE \"Users\" RESTART IDENTITY CASCADE");
+            jdbcTemplate.execute("TRUNCATE TABLE contacts RESTART IDENTITY CASCADE");
+            jdbcTemplate.execute("TRUNCATE TABLE users RESTART IDENTITY CASCADE");
 
             System.out.println("Database reset (IDs restarted)");
 
