@@ -13,19 +13,22 @@ package com.javaSpringProject.BankingService.Dto;
 //    private double balance;
 //}
 
+import com.javaSpringProject.BankingService.Entity.AccountType;
 import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.PositiveOrZero;
 
 public record AccountDto(
         @Schema(example = "1")
         Long id,
         @NotBlank
-        @Schema(example="SAVINGS",allowableValues = {"SAVINGS","CURRENT"})
-        String accountType,
+        @Schema(example="SAVINGS")
+        AccountType accountType,
         @Schema(example = "SBI20240001")
         String accountNumber,
         @Schema(example = "SBI0001234")
         String branchIfsc,
+        @PositiveOrZero
         @Schema(example = "5000.0")
         double balance,
         @Schema(example = "0.0")

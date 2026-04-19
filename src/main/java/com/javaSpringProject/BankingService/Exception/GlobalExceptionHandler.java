@@ -3,6 +3,7 @@ package com.javaSpringProject.BankingService.Exception;
 import org.springframework.dao.PessimisticLockingFailureException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.context.request.WebRequest;
@@ -50,5 +51,23 @@ public class GlobalExceptionHandler {
         );
 
         return new ResponseEntity<>(errorDetails,HttpStatus.SERVICE_UNAVAILABLE);
+    }
+
+    //Handle Valid Exception
+    @ExceptionHandler(MethodArgumentNotValidException.class)
+    public ResponseEntity<ErrorDetails> handleValidationException(
+            MethodArgumentNotValidException ex,
+            WebRequest request
+    ) {
+        String message = ex.getBindingResult().getFieldError().getDefaultMessage();
+
+        ErrorDetails errorDetails = new ErrorDetails(
+                LocalDateTime.now(),
+                message,
+                request.getDescription(false),
+                "VALIDATION_ERROR"
+        );
+
+        return new ResponseEntity<>(errorDetails, HttpStatus.BAD_REQUEST);
     }
 }

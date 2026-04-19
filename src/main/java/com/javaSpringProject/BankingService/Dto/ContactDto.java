@@ -1,11 +1,12 @@
 package com.javaSpringProject.BankingService.Dto;
 
 import io.swagger.v3.oas.annotations.media.Schema;
+import jakarta.validation.constraints.Email;
 
 public record ContactDto(
         @Schema(example = "1")
         Long id,
-
+        @Email
         @Schema(example = "rahul.sharma@email.com")
         String email,
 

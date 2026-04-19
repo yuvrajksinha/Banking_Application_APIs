@@ -16,10 +16,10 @@ public class Account {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-
+    @Enumerated(EnumType.STRING)
     @Column(name="account_type")
-    private String accountType;
-    @Column(name="account_number")
+    private AccountType accountType;
+    @Column(name="account_number",unique = true)
     private String accountNumber;
     @Column(name="Branch_IFSC")
     private String branchIfsc;
