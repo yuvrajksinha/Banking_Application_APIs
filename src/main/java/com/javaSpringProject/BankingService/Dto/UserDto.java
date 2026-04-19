@@ -6,7 +6,7 @@ import jakarta.validation.constraints.NotBlank;
 import java.time.LocalDate;
 
 public record UserDto(
-        @Schema(example = "1")
+        @Schema(accessMode = Schema.AccessMode.READ_ONLY)
         Long id,
         @NotBlank
         @Schema(example = "Rahul")

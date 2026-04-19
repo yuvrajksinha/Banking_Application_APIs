@@ -19,7 +19,7 @@ import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.PositiveOrZero;
 
 public record AccountDto(
-        @Schema(example = "1")
+        @Schema(accessMode = Schema.AccessMode.READ_ONLY)
         Long id,
         @NotBlank
         @Schema(example="SAVINGS")

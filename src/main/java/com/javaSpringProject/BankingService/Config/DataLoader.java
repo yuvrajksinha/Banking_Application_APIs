@@ -2,13 +2,12 @@ package com.javaSpringProject.BankingService.Config;
 
 import com.javaSpringProject.BankingService.Dto.*;
 import com.javaSpringProject.BankingService.Entity.AccountType;
-import com.javaSpringProject.BankingService.Repository.AccountRepository;
-import com.javaSpringProject.BankingService.Repository.UserRepository;
 import com.javaSpringProject.BankingService.Service.AccountService;
 
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.jdbc.core.JdbcTemplate;
 
 import java.time.LocalDate;
 
@@ -17,18 +16,17 @@ public class DataLoader {
 
     @Bean
     CommandLineRunner loadData(AccountService accountService,
-                               UserRepository userRepository,
-                               AccountRepository accountRepository) {
+                               JdbcTemplate jdbcTemplate) {
 
         return args -> {
 
-            // 🔥 Clear old data
-            accountRepository.deleteAll();
-            userRepository.deleteAll();
+            jdbcTemplate.execute("TRUNCATE TABLE accounts RESTART IDENTITY CASCADE");
+            jdbcTemplate.execute("TRUNCATE TABLE \"Contacts\" RESTART IDENTITY CASCADE");
+            jdbcTemplate.execute("TRUNCATE TABLE \"Users\" RESTART IDENTITY CASCADE");
 
-            System.out.println("Old data cleared");
+            System.out.println("Database reset (IDs restarted)");
 
-            // 👤 User 1
+            // User 1
             accountService.createAccount(new UserRegistrationDto(
                     new UserDto(null, "Arjun", "", "Reddy",
                             LocalDate.of(1997, 11, 5),
@@ -45,7 +43,7 @@ public class DataLoader {
                             "500034", "Telangana")
             ));
 
-            // 👤 User 2
+            // User 2
             accountService.createAccount(new UserRegistrationDto(
                     new UserDto(null, "Sneha", "", "Kapoor",
                             LocalDate.of(1999, 3, 15),
@@ -62,7 +60,7 @@ public class DataLoader {
                             "400053", "Maharashtra")
             ));
 
-            // 👤 User 3
+            // User 3
             var user3 = accountService.createAccount(new UserRegistrationDto(
                     new UserDto(null, "Vikram", "", "Singh",
                             LocalDate.of(1995, 8, 20),
@@ -79,7 +77,7 @@ public class DataLoader {
                             "560001", "Karnataka")
             ));
 
-            // 🔥 Add second account
+            // Add second account to user 3
             accountService.addAccountById(user3.id(),
                     new AccountDto(null, AccountType.CURRENT,
                             "ACC3004", "SBI0004321",
