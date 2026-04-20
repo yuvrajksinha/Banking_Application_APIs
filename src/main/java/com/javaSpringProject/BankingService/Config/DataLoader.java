@@ -30,7 +30,7 @@ public class DataLoader {
             accountService.createAccount(new UserRegistrationDto(
                     new UserDto(null, "Arjun", "", "Reddy",
                             LocalDate.of(1997, 11, 5),
-                            "MALE", "Mr.", null),
+                            "MALE", "Mr.", null,null),
 
                     new AccountDto(null, AccountType.SAVINGS,
                             "ACC1001", "ICIC0001234",
@@ -47,7 +47,7 @@ public class DataLoader {
             accountService.createAccount(new UserRegistrationDto(
                     new UserDto(null, "Sneha", "", "Kapoor",
                             LocalDate.of(1999, 3, 15),
-                            "FEMALE", "Ms.", null),
+                            "FEMALE", "Ms.", null,null),
 
                     new AccountDto(null, AccountType.CURRENT,
                             "ACC2002", "HDFC0005678",
@@ -64,7 +64,7 @@ public class DataLoader {
             var user3 = accountService.createAccount(new UserRegistrationDto(
                     new UserDto(null, "Vikram", "", "Singh",
                             LocalDate.of(1995, 8, 20),
-                            "MALE", "Mr.", null),
+                            "MALE", "Mr.", null,null),
 
                     new AccountDto(null, AccountType.SAVINGS,
                             "ACC3003", "SBI0004321",
