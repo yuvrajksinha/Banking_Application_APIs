@@ -1,11 +1,14 @@
 package com.javaSpringProject.BankingService.Mapper;
 
+import com.javaSpringProject.BankingService.Dto.AccountDto;
 import com.javaSpringProject.BankingService.Dto.ContactDto;
 import com.javaSpringProject.BankingService.Dto.UserDto;
 import com.javaSpringProject.BankingService.Dto.UserRegistrationDto;
 import com.javaSpringProject.BankingService.Entity.Account;
 import com.javaSpringProject.BankingService.Entity.Contact;
 import com.javaSpringProject.BankingService.Entity.User;
+
+import java.util.List;
 
 public class UserMapper {
     public static User mapToUserEntity(UserRegistrationDto userRegistrationDto){
@@ -59,6 +62,10 @@ public class UserMapper {
                     user.getContact().getState()
             );
         }
+        List<AccountDto> accounts = user.getAccounts()
+                .stream()
+                .map(AccountMapper::mapToAccountDto)
+                .toList();
         return new UserDto(user.getId(),
                 user.getFirstName(),
                 user.getMiddleName(),
@@ -66,6 +73,7 @@ public class UserMapper {
                 user.getDateOfBirth(),
                 user.getGender(),
                 user.getPrefix(),
-                contactDto);
+                contactDto,
+                accounts);
     }
 }

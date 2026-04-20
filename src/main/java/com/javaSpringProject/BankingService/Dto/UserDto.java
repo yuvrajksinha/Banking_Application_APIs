@@ -4,6 +4,7 @@ import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.validation.constraints.NotBlank;
 
 import java.time.LocalDate;
+import java.util.List;
 
 public record UserDto(
         @Schema(accessMode = Schema.AccessMode.READ_ONLY)
@@ -27,5 +28,6 @@ public record UserDto(
         @Schema(example = "Mr.")
         String prefix,
 
-        ContactDto contactDto
+        ContactDto contactDto,
+        List<AccountDto> accounts
 ) {}

@@ -93,4 +93,10 @@ public class AccountController {
         String type = accountService.getAccountType(id);
         return ResponseEntity.ok(Map.of("Account type",type));
     }
+
+    //Get All Users
+    @GetMapping("/users")
+    public ResponseEntity<List<UserDto>> getAllUsersWithDetails(){
+        return ResponseEntity.ok(accountService.getAllUsersWithDetails());
+    }
 }

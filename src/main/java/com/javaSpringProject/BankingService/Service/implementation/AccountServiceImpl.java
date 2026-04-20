@@ -231,4 +231,13 @@ public class AccountServiceImpl implements AccountService {
         }
     }
 
+    @Transactional
+    @Override
+    public List<UserDto> getAllUsersWithDetails() {
+        log.info("Fetching all users with full details");
+        List<User> users = userRepository.findAll();
+        return users.stream()
+                .map(UserMapper::mapToUserDto)
+                .toList();
+    }
 }

@@ -21,4 +21,6 @@ public interface AccountService {
     List<AccountDto> getAllAccounts();
     List<AccountDto> getAccountsByUserId(Long userId);
     void deleteAccount(Long id);
+
+    List<UserDto> getAllUsersWithDetails();
 }
