@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Banking Data</title>
+
+  <style>
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background: #eef2f7;
+            padding: 20px;
+        }
+
+        h1 {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .user-card {
+            background: white;
+            border-radius: 12px;
+            padding: 20px;
+            margin-bottom: 30px;
+            box-shadow: 0 6px 18px rgba(0,0,0,0.1);
+        }
+
+        .user-title {
+            font-size: 1.4rem;
+            margin-bottom: 15px;
+            font-weight: bold;
+            color: #2a5298;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 20px;
+            border-radius: 8px;
+            overflow: hidden;
+        }
+
+        th, td {
+            padding: 10px;
+            text-align: center;
+            border: 1px solid #ddd;
+        }
+
+        th {
+            color: white;
+        }
+
+        .user-table th {
+            background: #2a5298;
+        }
+
+        .contact-table th {
+            background: #28a745;
+        }
+
+        .account-table th {
+            background: #ff9800;
+        }
+
+        tr:nth-child(even) {
+            background: #f9f9f9;
+        }
+
+    </style>
+</head>
+<body>
+
+<h1>Banking System Data View</h1>
+
+<div id="data"></div>
+
+<script>
+    fetch('/api/accounts/users')
+        .then(res => res.json())
+        .then(data => {
+            let html = '';
+
+            data.forEach(user => {
+
+                html += `<div class="user-card">`;
+
+                html += `<div class="user-title">
+                            👤 ${user.firstName} ${user.lastName} (ID: ${user.id})
+                         </div>`;
+
+                // USER TABLE
+                html += `
+                <table class="user-table">
+                    <tr>
+                        <th>First Name</th>
+                        <th>Middle Name</th>
+                        <th>Last Name</th>
+                        <th>DOB</th>
+                        <th>Gender</th>
+                        <th>Prefix</th>
+                    </tr>
+                    <tr>
+                        <td>${user.firstName}</td>
+                        <td>${user.middleName || '-'}</td>
+                        <td>${user.lastName}</td>
+                        <td>${user.dateOfBirth}</td>
+                        <td>${user.gender}</td>
+                        <td>${user.prefix}</td>
+                    </tr>
+                </table>
+                `;
+
+                // CONTACT TABLE
+                html += `
+                <table class="contact-table">
+                    <tr>
+                        <th>Email</th>
+                        <th>Phone 1</th>
+                        <th>Phone 2</th>
+                        <th>City</th>
+                        <th>State</th>
+                    </tr>
+                    <tr>
+                        <td>${user.contactDto.email}</td>
+                        <td>${user.contactDto.phoneNumber1}</td>
+                        <td>${user.contactDto.phoneNumber2 || '-'}</td>
+                        <td>${user.contactDto.city}</td>
+                        <td>${user.contactDto.state}</td>
+                    </tr>
+                </table>
+                `;
+
+                // ACCOUNTS TABLE
+                html += `
+                <table class="account-table">
+                    <tr>
+                        <th>ID</th>
+                        <th>Type</th>
+                        <th>Number</th>
+                        <th>IFSC</th>
+                        <th>Balance</th>
+                        <th>Funds</th>
+                    </tr>
+                `;
+
+                user.accounts.forEach(acc => {
+                    html += `
+                    <tr>
+                        <td>${acc.id}</td>
+                        <td>${acc.accountType}</td>
+                        <td>${acc.accountNumber}</td>
+                        <td>${acc.branchIfsc}</td>
+                        <td>${acc.balance}</td>
+                        <td>${acc.funds}</td>
+                    </tr>
+                    `;
+                });
+
+                html += `</table>`;
+                html += `</div>`;
+            });
+
+            document.getElementById('data').innerHTML = html;
+        });
+</script>
+
+</body>
+</html>
